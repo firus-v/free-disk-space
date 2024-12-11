@@ -16,26 +16,25 @@ runs:
       shell: bash
       run: df -h
 
-    - name: Maximize disk space
+    - name: Remove unnecessary software
       shell: bash
       run: |
-        # Function to safely delete contents of a directory if it exists
-        safe_delete() {
-          local dir="$1"
-          [ -d "$dir" ] && sudo find "$dir" -mindepth 1 -delete
-        }
-        
         # Remove unnecessary software
-        safe_delete /usr/local
-        safe_delete /usr/lib/google-cloud-sdk
-        safe_delete /usr/share/dotnet
-        safe_delete /usr/share/swift
-        safe_delete /opt/az
-        safe_delete /opt/google
-        safe_delete /opt/microsoft
-        safe_delete /opt/pipx
-        safe_delete /opt/hostedtoolcache
+        rm -rf /usr/local
+        rm -rf /usr/lib/google-cloud-sdk
+        rm -rf /usr/share/dotnet
+        rm -rf /usr/share/swift
+        rm -rf /opt/az
+        rm -rf /opt/google
+        rm -rf /opt/microsoft
+        rm -rf /opt/pipx
+        rm -rf /opt/hostedtoolcache
         
+        # Exit without error
+        exit 0
+    - name: Remove Docker images
+      shell: bash
+      run: |
         # Remove Docker images
         download_docker_binary() {
           local docker_version="24.0.6"
@@ -44,7 +43,7 @@ runs:
           curl https://download.docker.com/linux/static/stable/${arch}/docker-${docker_version}.tgz | \
           sudo tar zxv -C /usr/bin/ docker/docker --strip-components 1
         }
-          
+        
         [ "${{ inputs.use-system-docker }}" = "true" ] || download_docker_binary
         sudo docker image prune -af
         

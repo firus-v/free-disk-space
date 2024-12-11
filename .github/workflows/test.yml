@@ -1,0 +1,42 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Test actions
+        uses: ./
+
+  test-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: pexcn/docker-images:bookworm
+      volumes:
+        - /usr/local:/usr/local
+        - /usr/lib/google-cloud-sdk:/usr/lib/google-cloud-sdk
+        - /usr/share/dotnet:/usr/share/dotnet
+        - /usr/share/swift:/usr/share/swift
+        - /opt/az:/opt/az
+        - /opt/google:/opt/google
+        - /opt/microsoft:/opt/microsoft
+        - /opt/pipx:/opt/pipx
+        - /opt/hostedtoolcache:/opt/hostedtoolcache
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Test actions
+        uses: ./
+        with:
+          use-system-docker: false

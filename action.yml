@@ -14,13 +14,15 @@ runs:
   steps:
     - name: Before clean
       shell: bash
-      run: df -h
+      run: |
+        # Free space before
+        df -h
 
     - name: Remove unnecessary software
       shell: bash
       run: |
         # Remove unnecessary software
-        sudo rm -rf /usr/local
+        sudo rm -rf /usr/local/android
         sudo rm -rf /usr/lib/google-cloud-sdk
         sudo rm -rf /usr/share/dotnet
         sudo rm -rf /usr/share/swift
@@ -52,4 +54,6 @@ runs:
 
     - name: After clean
       shell: bash
-      run: df -h
+      run: |
+        # Free space after
+        df -h

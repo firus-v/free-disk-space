@@ -20,7 +20,7 @@ runs:
       shell: bash
       run: |
         # Remove unnecessary software
-        rm -rf /usr/local
+        rm -rf /usr/local/lib/android
         rm -rf /usr/lib/google-cloud-sdk
         rm -rf /usr/share/dotnet
         rm -rf /usr/share/swift

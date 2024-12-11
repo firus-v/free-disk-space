@@ -20,15 +20,15 @@ runs:
       shell: bash
       run: |
         # Remove unnecessary software
-        sudo find /usr/local -mindepth 1 -delete
-        sudo find /usr/lib/google-cloud-sdk -mindepth 1 -delete
-        sudo find /usr/share/dotnet -mindepth 1 -delete
-        sudo find /usr/share/swift -mindepth 1 -delete
-        sudo find /opt/az -mindepth 1 -delete
-        sudo find /opt/google -mindepth 1 -delete
-        sudo find /opt/microsoft -mindepth 1 -delete
-        sudo find /opt/pipx -mindepth 1 -delete
-        sudo find /opt/hostedtoolcache -mindepth 1 -delete
+        sudo rm -rf /usr/local
+        sudo rm -rf /usr/lib/google-cloud-sdk
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /usr/share/swift
+        sudo rm -rf /opt/az
+        sudo rm -rf /opt/google
+        sudo rm -rf /opt/microsoft
+        sudo rm -rf /opt/pipx
+        sudo rm -rf /opt/hostedtoolcache
         
         # Exit without error
         exit 0

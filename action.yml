@@ -1,4 +1,4 @@
-name: 'Maximize disk space'
+name: 'Github action free disk space'
 description: 'Maximize the disk space of GitHub Actions.'
 branding:
   icon: 'package'

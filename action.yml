@@ -20,24 +20,24 @@ runs:
       shell: bash
       run: |
         # Function to safely delete contents of a directory if it exists
-          safe_delete() {
+        safe_delete() {
           local dir="$1"
           [ -d "$dir" ] && sudo find "$dir" -mindepth 1 -delete
         }
         
         # Remove unnecessary software
-          safe_delete /usr/local
-          safe_delete /usr/lib/google-cloud-sdk
-          safe_delete /usr/share/dotnet
-          safe_delete /usr/share/swift
-          safe_delete /opt/az
-          safe_delete /opt/google
-          safe_delete /opt/microsoft
-          safe_delete /opt/pipx
-          safe_delete /opt/hostedtoolcache
-          
-          # Remove Docker images
-          download_docker_binary() {
+        safe_delete /usr/local
+        safe_delete /usr/lib/google-cloud-sdk
+        safe_delete /usr/share/dotnet
+        safe_delete /usr/share/swift
+        safe_delete /opt/az
+        safe_delete /opt/google
+        safe_delete /opt/microsoft
+        safe_delete /opt/pipx
+        safe_delete /opt/hostedtoolcache
+        
+        # Remove Docker images
+        download_docker_binary() {
           local docker_version="24.0.6"
           local arch="x86_64"
           [ "$(dpkg --print-architecture)" = "amd64" ] || arch="aarch64"
@@ -45,11 +45,11 @@ runs:
           sudo tar zxv -C /usr/bin/ docker/docker --strip-components 1
         }
           
-          [ "${{ inputs.use-system-docker }}" = "true" ] || download_docker_binary
-          sudo docker image prune -af
-          
-          # Exit without error
-          exit 0
+        [ "${{ inputs.use-system-docker }}" = "true" ] || download_docker_binary
+        sudo docker image prune -af
+        
+        # Exit without error
+        exit 0
 
     - name: After clean
       shell: bash
